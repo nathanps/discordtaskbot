@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  taskbot:
+    build: .
+    container_name: discord-taskbot
+    restart: unless-stopped
+    volumes:
+      # Mount your data directory (contains git repo with tasks)
+      - ./data:/data
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - REPO_PATH=/data
+      - CSV_FILENAME=tasks.csv
+    # Uncomment to configure git user inside container
+    # command: >
+    #   sh -c "git config --global user.email 'bot@example.com' &&
+    #          git config --global user.name 'TaskBot' &&
+    #          python bot.py"
